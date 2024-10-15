@@ -28,7 +28,6 @@ int main() {
 
 	// задание языка и вывод интерфейса
 
-	HANDLE h;
 	HANDLE a;
 	a = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(a, 13);
@@ -87,6 +86,9 @@ int main() {
 				}
 
 				// если аркан > 22
+				if (arc > 22) {
+					arc -= 22;
+				}
 				if (arc > 22) {
 					arc -= 22;
 				}
