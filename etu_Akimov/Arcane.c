@@ -29,8 +29,9 @@ int main() {
 	// задание языка и вывод интерфейса
 
 	HANDLE h;
-	h = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(h, 52);
+	HANDLE a;
+	a = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(a, 13);
 	setlocale(LC_ALL, "Ru");
 	int pos = 1;
 	menu(pos, days_1, months_1, years_1);
