@@ -3,6 +3,8 @@
 #include <locale.h>
 #include <conio.h>
 #include <ctype.h>
+#include <windows.h>
+
 
 int menu(int pos_f, char days_1[], char months_1[], char years_1[]);
 int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]);
@@ -25,6 +27,10 @@ int main() {
 	long day_1 = 4;
 
 	// задание языка и вывод интерфейса
+
+	HANDLE h;
+	h = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(h, 52);
 	setlocale(LC_ALL, "Ru");
 	int pos = 1;
 	menu(pos, days_1, months_1, years_1);
