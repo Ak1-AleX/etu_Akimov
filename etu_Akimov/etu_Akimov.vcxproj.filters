@@ -19,12 +19,4 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="info.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-    <Text Include="log.txt">
-      <Filter>Исходные файлы</Filter>
-    </Text>
-  </ItemGroup>
 </Project>
