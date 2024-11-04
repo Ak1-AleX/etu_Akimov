@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Arcane.c" />
+    <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="info.txt" />
