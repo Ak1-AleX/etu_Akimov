@@ -6,15 +6,15 @@
 #include <windows.h>
 
 
-int menu(int pos_f, char days_1[], char months_1[], char years_1[]);
+int Menu(int pos_f, char days_1[], char months_1[], char years_1[]);
 int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]);
 
 
 int main() {
 
 	// инициализация ПЕПРЕМЕННЫХ дней, месяцев, лет
-	long ds_1 = 1;
-	long mts_1 = 1;
+	long ds_1 = 2;
+	long mts_1 = 2;
 	long yrs_1 = 2000;
 
 	// инициализация МАССИВОВ дней, месяцев, лет
@@ -33,7 +33,7 @@ int main() {
 	SetConsoleTextAttribute(a, 13);
 	setlocale(LC_ALL, "Ru");
 	int pos = 1;
-	menu(pos, days_1, months_1, years_1);
+	Menu(pos, days_1, months_1, years_1);
 
 	while (mainFlag) {
 		int ent = _getch();
@@ -54,7 +54,7 @@ int main() {
 					(1 <= ds_1 && ds_1 <= 28) && (yrs_1 % 4 != 0)
 					)) {
 
-					menu(pos, days_1, months_1, years_1);
+					Menu(pos, days_1, months_1, years_1);
 				}
 
 				// значенне по дефолту
@@ -71,11 +71,12 @@ int main() {
 					years_1[2] = '0';
 					years_1[3] = '0';
 
-					menu(pos, days_1, months_1, years_1);
+					Menu(pos, days_1, months_1, years_1);
 					printf("Некорректно введенная дата");
 				}
 			}
 			if (pos == 2) {
+				Menu(pos, days_1, months_1, years_1);
 
 				// расчет старшего аркана
 				int arc = 0;
@@ -107,11 +108,11 @@ int main() {
 			if (ent == 72) {
 				if (pos != 1) {
 					pos -= 1;
-					menu(pos, days_1, months_1, years_1);
+					Menu(pos, days_1, months_1, years_1);
 				}
 				else if (pos == 1) {
 					pos = 3;
-					menu(pos, days_1, months_1, years_1);
+					Menu(pos, days_1, months_1, years_1);
 				}
 			}
 
@@ -119,11 +120,11 @@ int main() {
 			if (ent == 80) {
 				if (pos != 3) {
 					pos += 1;
-					menu(pos, days_1, months_1, years_1);
+					Menu(pos, days_1, months_1, years_1);
 				}
 				else if (pos == 3) {
 					pos = 1;
-					menu(pos, days_1, months_1, years_1);
+					Menu(pos, days_1, months_1, years_1);
 				}
 			}
 			break;
@@ -131,22 +132,22 @@ int main() {
 			// проверка нажатия цифр (1 - 3)
 		case 49:
 			pos = 1;
-			menu(pos, days_1, months_1, years_1);
+			Menu(pos, days_1, months_1, years_1);
 			break;
 		case 50:
 			pos = 2;
-			menu(pos, days_1, months_1, years_1);
+			Menu(pos, days_1, months_1, years_1);
 			break;
 		case 51:
 			pos = 3;
-			menu(pos, days_1, months_1, years_1);
+			Menu(pos, days_1, months_1, years_1);
 			break;
 		}
 	}
 }
 
 // вывод интерфейса
-int menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
+int Menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
 	system("cls");
 	printf("Для перемещения стрелки используйте стрелки вверх или цифры\n");
 	printf("Для выполнения действия нажмите ENTER\n\n");
@@ -221,7 +222,7 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 			}
 		}
 
-		// если нажато ':' после 1 или 3 числа
+		// если нажато '.' после 1 или 3 числа
 		if ((symDate == '.' || symDate == ':') && (i == 1 || i == 3)) {
 			system("cls");
 			printf("Введите дату (дд.мм.гггг): ");
@@ -262,3 +263,36 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 	// полное значение даты для аркана
 	*day_f = strtol(date, NULL, 10);
 }
+
+
+
+
+// практика 
+
+/*
+Git Branch
+
+Бранчи
+file-stream
+time-chrono
+
+Git branch
+Git checkout
+#markdown
+
+ДЗ: 
+1) описание 22 арканов в отдельном файле (info.txt) + программа должна считывать аркан и выводить строчку из файла
+2) записать в другой файл (log.txt) все когда либо введенные даты
+
+# include <ifstream> - input file stream - считывание с файла
+# include <ofstream> - output file stream - запись в файл
+
+1) создание объекта
+2) привязка объекта к файлу
+3) запись / перезапись объекта (...)
+4) отвязать объект (.close)
+
+доп задание:
+1) рассчитать время работы алгоритма с помощью библиотек времени (chrono)
+2) добавление в интерфейс возможности просмотра всех введеных дат
+*/
