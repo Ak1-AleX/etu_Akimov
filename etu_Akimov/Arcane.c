@@ -13,8 +13,8 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 int main() {
 
 	// инициализация ПЕПРЕМЕННЫХ дней, месяцев, лет
-	long ds_1 = 2;
-	long mts_1 = 2;
+	long ds_1 = 1;
+	long mts_1 = 1;
 	long yrs_1 = 2000;
 
 	// инициализация МАССИВОВ дней, месяцев, лет
