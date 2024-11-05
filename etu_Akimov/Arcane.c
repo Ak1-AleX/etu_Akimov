@@ -5,11 +5,11 @@
 #include <ctype.h>
 #include <windows.h>
 
-
+// функции
 int Menu(int pos_f, char days_1[], char months_1[], char years_1[]);
 int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]);
 
-
+// программа
 int main() {
 
 	// инициализация ПЕПРЕМЕННЫХ дней, месяцев, лет
@@ -83,7 +83,7 @@ int main() {
 			}
 			if (pos == 2) {
 				Menu(pos, days_1, months_1, years_1);
-
+				
 				// расчет старшего аркана
 				FILE* arcaneDesc = fopen("info.txt", "r");
 				char arcaneLine[500];
@@ -138,7 +138,6 @@ int main() {
 						printf("\n");
 					}
 				}
-
 				fclose(arcaneDesc);
 			}
 			if (pos == 3) {
@@ -328,36 +327,3 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 	fprintf(arcaneSave, "%s.%s.%s\n", days_f, months_f, years_f);
 	fclose(arcaneSave);
 }
-
-
-
-
-// практика 
-
-/*
-Git Branch
-
-Бранчи
-file-stream
-time-chrono
-
-Git branch
-Git checkout
-#markdown
-
-ДЗ: 
-1) описание 22 арканов в отдельном файле (info.txt) + программа должна считывать аркан и выводить строчку из файла
-2) записать в другой файл (log.txt) все когда либо введенные даты
-
-# include <ifstream> - input file stream - считывание с файла
-# include <ofstream> - output file stream - запись в файл
-
-1) создание объекта
-2) привязка объекта к файлу
-3) запись / перезапись объекта (...)
-4) отвязать объект (.close)
-
-доп задание:
-1) рассчитать время работы алгоритма с помощью библиотек времени (chrono)
-2) добавление в интерфейс возможности просмотра всех введеных дат
-*/
