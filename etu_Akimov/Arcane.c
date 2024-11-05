@@ -79,7 +79,7 @@ int main() {
 				Menu(pos, days_1, months_1, years_1);
 
 				// расчет старшего аркана
-				FILE* arcaneDesc = fopen("log.txt", "r");
+				FILE* arcaneDesc = fopen("info.txt", "r");
 				char arcaneLine[500];
 
 				int arc = 0;
@@ -136,6 +136,10 @@ int main() {
 				fclose(arcaneDesc);
 			}
 			if (pos == 3) {
+
+			}
+//////////////////////////////////////////////////////////////////////////////////
+			if (pos == 4) {
 				mainFlag = false;
 			}
 			break;
@@ -151,25 +155,25 @@ int main() {
 					Menu(pos, days_1, months_1, years_1);
 				}
 				else if (pos == 1) {
-					pos = 3;
+					pos = 4;
 					Menu(pos, days_1, months_1, years_1);
 				}
 			}
 
 			// стрелка вниз
 			if (ent == 80) {
-				if (pos != 3) {
+				if (pos != 4) {
 					pos += 1;
 					Menu(pos, days_1, months_1, years_1);
 				}
-				else if (pos == 3) {
+				else if (pos == 4) {
 					pos = 1;
 					Menu(pos, days_1, months_1, years_1);
 				}
 			}
 			break;
 
-			// проверка нажатия цифр (1 - 3)
+			// проверка нажатия цифр (1 - 4)
 		case 49:
 			pos = 1;
 			Menu(pos, days_1, months_1, years_1);
@@ -180,6 +184,10 @@ int main() {
 			break;
 		case 51:
 			pos = 3;
+			Menu(pos, days_1, months_1, years_1);
+			break;
+		case 52:
+			pos = 4;
 			Menu(pos, days_1, months_1, years_1);
 			break;
 		}
@@ -193,9 +201,9 @@ int Menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
 	printf("Для выполнения действия нажмите ENTER\n\n");
 
 	// создание интерфейса
-	char face[3][80] = { "1) Ввод даты рождения (от 1900 до 2100г):", "2) Расчет старшего аркана:", "3) Выход из программы" };
+	char face[4][80] = { "1) Ввод даты рождения (от 1900 до 2100г):", "2) Расчет старшего аркана:", "3) Просмотр всех дат", "4) Выход из программы" };
 	char arrow[8] = "    <--";
-	for (int i = 1; i <= 3; i++) {
+	for (int i = 1; i <= 4; i++) {
 		printf("%s", face[i - 1]);
 
 		if (i == 1) {
@@ -302,6 +310,10 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 
 	// полное значение даты для аркана
 	*day_f = strtol(date, NULL, 10);
+
+	// сохранение всех введенных дат
+	FILE* arcaneSave = fopen("log.txt", "a");
+	fprintf(arcaneSave, "%s.%s.%s\n", days_f, months_f, years_f);
 }
 
 
