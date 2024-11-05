@@ -25,9 +25,15 @@ int main() {
 	// инициализация флага и аркана
 	bool mainFlag = true;
 	long day_1 = 4;
+	char saveDate[20];
+	memset(saveDate, ' ', sizeof(saveDate));
+
+	// перезапись истории дат в файле
+	FILE* arcaneSave = fopen("log.txt", "w");
+	fprintf(arcaneSave, "");
+	fclose(arcaneSave);
 
 	// задание языка и вывод интерфейса
-
 	HANDLE a;
 	a = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(a, 13);
@@ -136,9 +142,15 @@ int main() {
 				fclose(arcaneDesc);
 			}
 			if (pos == 3) {
+				Menu(pos, days_1, months_1, years_1);
+				printf("История введенных дат:\n");
 
+				// вывод всех пердыдущих дат
+				FILE* arcaneSave = fopen("log.txt", "r");
+				while (fgets(saveDate, 20, arcaneSave) != NULL) {
+					printf("%s", saveDate);
+				}
 			}
-//////////////////////////////////////////////////////////////////////////////////
 			if (pos == 4) {
 				mainFlag = false;
 			}
@@ -314,6 +326,7 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 	// сохранение всех введенных дат
 	FILE* arcaneSave = fopen("log.txt", "a");
 	fprintf(arcaneSave, "%s.%s.%s\n", days_f, months_f, years_f);
+	fclose(arcaneSave);
 }
 
 
