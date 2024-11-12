@@ -108,34 +108,10 @@ int main() {
 
 					// запись описания аркана в массив
 					memset(arcaneLine, ' ', sizeof(arcaneLine));
-					fgets(arcaneLine, 500, arcaneDesc);
+					fgets(arcaneLine, 200, arcaneDesc);
 
 					if (j == arc) {
-						printf("\t");
-						for (int i = 0; i <= 100; i++) {
-							printf("%c", arcaneLine[i]);
-						}
-						printf("\n");
-						printf("\t");
-						for (int i = 101; i <= 200; i++) {
-							printf("%c", arcaneLine[i]);
-						}
-						printf("\n");
-						printf("\t");
-						for (int i = 201; i <= 300; i++) {
-							printf("%c", arcaneLine[i]);
-						}
-						printf("\n");
-						printf("\t");
-						for (int i = 301; i <= 400; i++) {
-							printf("%c", arcaneLine[i]);
-						}
-						printf("\n");
-						printf("\t");
-						for (int i = 401; i <= 499; i++) {
-							printf("%c", arcaneLine[i]);
-						}
-						printf("\n");
+						printf("%s", arcaneLine);
 					}
 				}
 				fclose(arcaneDesc);
@@ -200,6 +176,11 @@ int main() {
 		case 52:
 			pos = 4;
 			Menu(pos, days_1, months_1, years_1);
+			break;
+
+		// проверка нажатия ESC
+		case 27:
+			exit(0);
 			break;
 		}
 	}
