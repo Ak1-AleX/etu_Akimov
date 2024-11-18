@@ -166,6 +166,12 @@ int main() {
 
 		// проверка нажатия ESC
 		case 27:
+
+			// перезапись истории дат в файле
+			FILE* arcaneSave = fopen("log.txt", "w");
+			fprintf(arcaneSave, "");
+			fclose(arcaneSave);
+
 			exit(0);
 			break;
 		}
