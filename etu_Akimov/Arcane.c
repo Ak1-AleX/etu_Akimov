@@ -9,6 +9,7 @@
 void Menu(int pos_f, char days_1[], char months_1[], char years_1[]);
 void Date(int* day_f, int* ds_f, int* mts_f, int* yrs_f, char days_f[], char months_f[], char years_f[]);
 void Right(int pos_f, char days_1[], char months_1[], char years_1[], int* ds_f, int* mts_f, int* yrs_f);
+void Arcane(int* day_f);
 
 // программа
 int main() {
@@ -29,11 +30,12 @@ int main() {
 	char saveDate[20];
 	memset(saveDate, ' ', sizeof(saveDate));
 
-
-	// задание языка и вывод интерфейса
+	// задание цвета консольным составляющим
 	HANDLE a;
 	a = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(a, 13);
+
+	// задание языка и вывод интерфейса	
 	setlocale(LC_ALL, "Ru");
 	int pos = 1;
 	Menu(pos, days_1, months_1, years_1);
@@ -61,37 +63,8 @@ int main() {
 			if (pos == 2) {
 				Menu(pos, days_1, months_1, years_1);
 				
-				// расчет старшего аркана
-				FILE* arcaneDesc = fopen("info.txt", "r");
-				char arcaneLine[500];
-
-				int arc = 0;
-				int arc_day = day_1;
-				while (arc_day > 0) {
-					arc += arc_day % 10;
-					arc_day /= 10;
-				}
-
-				// если аркан > 22
-				if (arc > 22) {
-					arc -= 22;
-				}
-				if (arc > 22) {
-					arc -= 22;
-				}
-				printf("Ваш старший аркан: %d\n\n", arc);
-
-				for (int j = 1; j <= 23; j++) {
-
-					// запись описания аркана в массив
-					memset(arcaneLine, ' ', sizeof(arcaneLine));
-					fgets(arcaneLine, 200, arcaneDesc);
-
-					if (j == arc) {
-						printf("%s", arcaneLine);
-					}
-				}
-				fclose(arcaneDesc);
+				// расчет аркана
+				Arcane(day_1);
 			}
 
 			// если выбран вывод всех введенных дат
@@ -166,8 +139,9 @@ int main() {
 
 		// проверка нажатия ESC
 		case 27:
-
+			
 			// перезапись истории дат в файле
+			if (true);
 			FILE* arcaneSave = fopen("log.txt", "w");
 			fprintf(arcaneSave, "");
 			fclose(arcaneSave);
@@ -334,4 +308,40 @@ void Right(int pos_f, char days_1[], char months_1[], char years_1[], int* ds_f,
 		Menu(pos_f, days_1, months_1, years_1);
 		printf("Некорректно введенная дата\n");
 	}
+}
+
+// вывод аркана
+void Arcane(int* day_f) {
+
+	// расчет старшего аркана
+	FILE* arcaneDesc = fopen("info.txt", "r");
+	char arcaneLine[500];
+
+	int arc = 0;
+	int arc_day = day_f;
+	while (arc_day > 0) {
+		arc += arc_day % 10;
+		arc_day /= 10;
+	}
+
+	// если аркан > 22
+	if (arc > 22) {
+		arc -= 22;
+	}
+	if (arc > 22) {
+		arc -= 22;
+	}
+	printf("Ваш старший аркан: %d\n\n", arc);
+
+	// запись описания аркана в массив
+	for (int j = 1; j <= 23; j++) {
+
+		memset(arcaneLine, ' ', sizeof(arcaneLine));
+		fgets(arcaneLine, 200, arcaneDesc);
+
+		if (j == arc) {
+			printf("%s", arcaneLine);
+		}
+	}
+	fclose(arcaneDesc);
 }
