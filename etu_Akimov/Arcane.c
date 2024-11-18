@@ -7,16 +7,16 @@
 
 // функции
 void Menu(int pos_f, char days_1[], char months_1[], char years_1[]);
-void Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]);
-void Right();
+void Date(int* day_f, int* ds_f, int* mts_f, int* yrs_f, char days_f[], char months_f[], char years_f[]);
+void Right(int pos_f, char days_1[], char months_1[], char years_1[], int* ds_f, int* mts_f, int* yrs_f);
 
 // программа
 int main() {
 
 	// инициализация ПЕПРЕМЕННЫХ дней, месяцев, лет
-	long ds_1 = 1;
-	long mts_1 = 1;
-	long yrs_1 = 2000;
+	int ds_1 = 1;
+	int mts_1 = 1;
+	int yrs_1 = 2000;
 
 	// инициализация МАССИВОВ дней, месяцев, лет
 	char days_1[3] = "01";
@@ -25,7 +25,7 @@ int main() {
 
 	// инициализация флага и аркана
 	bool mainFlag = true;
-	long day_1 = 4;
+	int day_1 = 4;
 	char saveDate[20];
 	memset(saveDate, ' ', sizeof(saveDate));
 
@@ -53,34 +53,8 @@ int main() {
 				//ввод 1 даты
 				Date(&day_1, &ds_1, &mts_1, &yrs_1, days_1, months_1, years_1);
 
-				// проверка на валидацию
-				if ((1900 <= yrs_1 && yrs_1 <= 2100) && (1 <= mts_1 && mts_1 <= 12) && (
-					(1 <= ds_1 && ds_1 <= 31) && (mts_1 == 1 || mts_1 == 3 || mts_1 == 5 || mts_1 == 7 || mts_1 == 8 || mts_1 == 10 || mts_1 == 12) ||
-					(1 <= ds_1 && ds_1 <= 30) && (mts_1 == 4 || mts_1 == 6 || mts_1 == 9 || mts_1 == 11) ||
-					(1 <= ds_1 && ds_1 <= 29) && (yrs_1 % 4 == 0) ||
-					(1 <= ds_1 && ds_1 <= 28) && (yrs_1 % 4 != 0)
-					)) {
-
-					Menu(pos, days_1, months_1, years_1);
-				}
-
-				// значенне по дефолту
-				else {
-					ds_1 = 1;
-					mts_1 = 1;
-					yrs_1 = 2000;
-					days_1[0] = '0';
-					days_1[1] = '1';
-					months_1[0] = '0';
-					months_1[1] = '1';
-					years_1[0] = '2';
-					years_1[1] = '0';
-					years_1[2] = '0';
-					years_1[3] = '0';
-
-					Menu(pos, days_1, months_1, years_1);
-					printf("Некорректно введенная дата");
-				}
+				// проверка даты на корректность
+				Right(pos, days_1, months_1, years_1, &ds_1, &mts_1, &yrs_1);
 			}
 			
 			// если выбран расчер аркана
@@ -223,7 +197,7 @@ void Menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
 }
 
 // ввод даты
-void Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]) {
+void Date(int* day_f, int* ds_f, int* mts_f, int* yrs_f, char days_f[], char months_f[], char years_f[]) {
 	system("cls");
 	printf("Введите дату (дд.мм.гггг): ");
 
@@ -322,6 +296,36 @@ void Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char
 }
 
 // проверка на правильную дату
-void Right() {
+void Right(int pos_f, char days_1[], char months_1[], char years_1[], int* ds_f, int* mts_f, int* yrs_f){
 
+	// проверка на валидацию
+	if ((1900 <= *yrs_f && *yrs_f <= 2100) && (1 <= *mts_f && *mts_f <= 12) && (
+		(1 <= *ds_f && *ds_f <= 31) && (*mts_f == 1 || *mts_f == 3 || *mts_f == 5 || *mts_f == 7 || *mts_f == 8 || *mts_f == 10 || *mts_f == 12) ||
+		(1 <= *ds_f && *ds_f <= 30) && (*mts_f == 4 || *mts_f == 6 || *mts_f == 9 || *mts_f == 11) ||
+		(1 <= *ds_f && *ds_f <= 29) && (*yrs_f % 4 == 0) ||
+		(1 <= *ds_f && *ds_f <= 28) && (*yrs_f % 4 != 0)
+		)) {
+
+		// вывод интерфейса
+		Menu(pos_f, days_1, months_1, years_1);
+	}
+
+	// значенне по дефолту
+	else {
+		*ds_f = 1;
+		*mts_f = 1;
+		*yrs_f = 2000;
+		days_1[0] = '0';
+		days_1[1] = '1';
+		months_1[0] = '0';
+		months_1[1] = '1';
+		years_1[0] = '2';
+		years_1[1] = '0';
+		years_1[2] = '0';
+		years_1[3] = '0';
+
+		// вывод интерфейса
+		Menu(pos_f, days_1, months_1, years_1);
+		printf("Некорректно введенная дата\n");
+	}
 }
