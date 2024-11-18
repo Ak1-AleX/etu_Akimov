@@ -6,8 +6,9 @@
 #include <windows.h>
 
 // функции
-int Menu(int pos_f, char days_1[], char months_1[], char years_1[]);
-int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]);
+void Menu(int pos_f, char days_1[], char months_1[], char years_1[]);
+void Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]);
+void Right();
 
 // программа
 int main() {
@@ -28,10 +29,6 @@ int main() {
 	char saveDate[20];
 	memset(saveDate, ' ', sizeof(saveDate));
 
-	// перезапись истории дат в файле
-	FILE* arcaneSave = fopen("log.txt", "w");
-	fprintf(arcaneSave, "");
-	fclose(arcaneSave);
 
 	// задание языка и вывод интерфейса
 	HANDLE a;
@@ -43,10 +40,14 @@ int main() {
 
 	while (mainFlag) {
 		int ent = _getch();
+
+		// проверка нажатия
 		switch (ent) {
 
-			// проверка нажатия ENTER
+		// проверка нажатия ENTER
 		case 13:
+
+			// если выбран ввод даты
 			if (pos == 1) {
 
 				//ввод 1 даты
@@ -81,6 +82,8 @@ int main() {
 					printf("Некорректно введенная дата");
 				}
 			}
+			
+			// если выбран расчер аркана
 			if (pos == 2) {
 				Menu(pos, days_1, months_1, years_1);
 				
@@ -116,6 +119,8 @@ int main() {
 				}
 				fclose(arcaneDesc);
 			}
+
+			// если выбран вывод всех введенных дат
 			if (pos == 3) {
 				Menu(pos, days_1, months_1, years_1);
 				printf("История введенных дат:\n");
@@ -126,12 +131,19 @@ int main() {
 					printf("%s", saveDate);
 				}
 			}
+
+			// если выбран выход из программы
 			if (pos == 4) {
 				mainFlag = false;
+
+				// перезапись истории дат в файле
+				FILE* arcaneSave = fopen("log.txt", "w");
+				fprintf(arcaneSave, "");
+				fclose(arcaneSave);
 			}
 			break;
 
-			//проверка нажатия стрелочек
+		//проверка нажатия стрелочек
 		case 224:
 			ent = _getch();
 
@@ -160,7 +172,7 @@ int main() {
 			}
 			break;
 
-			// проверка нажатия цифр (1 - 4)
+		// проверка нажатия цифр (1 - 4)
 		case 49:
 			pos = 1;
 			Menu(pos, days_1, months_1, years_1);
@@ -187,7 +199,7 @@ int main() {
 }
 
 // вывод интерфейса
-int Menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
+void Menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
 	system("cls");
 	printf("Для перемещения стрелки используйте стрелки вверх или цифры\n");
 	printf("Для выполнения действия нажмите ENTER\n\n");
@@ -210,8 +222,8 @@ int Menu(int pos_f, char days_1[], char months_1[], char years_1[]) {
 	printf("--------------------\n");
 }
 
-//ввод даты
-int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]) {
+// ввод даты
+void Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char months_f[], char years_f[]) {
 	system("cls");
 	printf("Введите дату (дд.мм.гггг): ");
 
@@ -307,4 +319,9 @@ int Date(long* day_f, long* ds_f, long* mts_f, long* yrs_f, char days_f[], char 
 	FILE* arcaneSave = fopen("log.txt", "a");
 	fprintf(arcaneSave, "%s.%s.%s\n", days_f, months_f, years_f);
 	fclose(arcaneSave);
+}
+
+// проверка на правильную дату
+void Right() {
+
 }
